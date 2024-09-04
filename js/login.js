@@ -1,30 +1,48 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Check if default user is already in localStorage
-    if (!localStorage.getItem('users')) {
-        const defaultUser = {
-            username: 'admin',
-            password: 'admin123',
-            role: 'Admin'
-        };
-        
-        // Store the default user in localStorage
-        localStorage.setItem('users', JSON.stringify([defaultUser]));
-    }
-});
+    const loginForm = document.getElementById('login-form');
+    const errorMessage = document.getElementById('error-message');
 
-function loginUser() {
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-    
-    const users = JSON.parse(localStorage.getItem('users')) || [];
-    const user = users.find(user => user.username === username && user.password === password);
-    
-    if (user) {
-        // Store the logged-in user in localStorage
-        localStorage.setItem('loggedInUser', username);
-        alert('Login successful!');
-        window.location.href = 'home.html'; // Redirect to home page
-    } else {
-        alert('Invalid username or password');
+    // Check if the user is already logged in and redirect if token is present
+    if (localStorage.getItem('token')) {
+        window.location.href = 'pages/home.html'; // Adjust path to your home page
     }
-}
+
+    loginForm.addEventListener('submit', async function (event) {
+        event.preventDefault();
+
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        // Backend API URL for login
+        const API_URL = 'http://localhost:5000/api/auth/login';  // Adjust as needed
+
+        try {
+            // Send a POST request to the backend for authentication
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, password }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                // If login is successful, store the token in localStorage
+                localStorage.setItem('token', data.token);
+                localStorage.setItem('loggedInUser', username);  // Optional: store the username
+                
+                // Redirect to the home page
+                window.location.href = 'pages/home.html';  // Adjusted path for your home page
+            } else {
+                // Display error message from the backend
+                errorMessage.textContent = data.message || 'Invalid username or password';
+            }
+        } catch (error) {
+            // Handle any unexpected errors
+            console.error('Error logging in:', error);
+            errorMessage.textContent = 'An error occurred. Please try again later.';
+        }
+    });
+});
