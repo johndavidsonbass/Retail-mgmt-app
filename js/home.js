@@ -31,6 +31,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Event listener for Logout button
     document.getElementById('logout-button').addEventListener('click', function() {
-        window.location.href = '../login.html';
+        // Clear the token and logged-in user from local storage
+        localStorage.removeItem('token');
+        localStorage.removeItem('loggedInUser');
+        
+        // Redirect to the login page
+        window.location.href = '../index.html';
     });
 });
