@@ -1,54 +1,30 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const loginButton = document.getElementById('login-btn');
-    loginButton.addEventListener('click', function () {
-        const enteredUsername = document.getElementById('username').value;
-        const enteredPassword = document.getElementById('password').value;
-
-        // Hardcoded credentials for testing on GitHub Pages
+document.addEventListener('DOMContentLoaded', function() {
+    // Check if default user is already in localStorage
+    if (!localStorage.getItem('users')) {
         const defaultUser = {
             username: 'admin',
-            password: 'password123'
+            password: 'admin123',
+            role: 'Admin'
         };
-
-        if (
-            enteredUsername === defaultUser.username &&
-            enteredPassword === defaultUser.password
-        ) {
-            // Log the user in
-            alert('Login successful! Redirecting...');
-            window.location.href = 'pages/home.html'; // Redirect to homepage or another page
-        } else {
-            // Display error
-            alert('Invalid username or password');
-        }
-    });
+        
+        // Store the default user in localStorage
+        localStorage.setItem('users', JSON.stringify([defaultUser]));
+    }
 });
 
-
-
-document.addEventListener('DOMContentLoaded', function() {
-    const loginForm = document.getElementById('login-form');
-    const errorMessage = document.getElementById('error-message');
-
-    loginForm.addEventListener('submit', function (event) {
-        event.preventDefault();
-
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
-
-        // Retrieve the list of users from localStorage
-        const users = JSON.parse(localStorage.getItem('users')) || [];
-
-        // Check if the entered username and password match any user in the list
-        const user = users.find(user => user.username === username && user.password === password);
-
-        if (user) {
-            // If credentials match, save the logged-in user to localStorage and redirect
-            localStorage.setItem('loggedInUser', username);
-            window.location.href = 'pages/home.html';  // Adjusted path for index.html
-        } else {
-            // If credentials don't match, display an error message
-            errorMessage.textContent = 'Invalid username or password';
-        }
-    });
-});
+function loginUser() {
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    const user = users.find(user => user.username === username && user.password === password);
+    
+    if (user) {
+        // Store the logged-in user in localStorage
+        localStorage.setItem('loggedInUser', username);
+        alert('Login successful!');
+        window.location.href = 'home.html'; // Redirect to home page
+    } else {
+        alert('Invalid username or password');
+    }
+}
