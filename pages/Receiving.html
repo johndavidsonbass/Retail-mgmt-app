@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warehouse Receiving - Brownie Furniture</title>
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/Receiving.css">
+</head>
+<body>
+    <div class="sidebar">
+        <!-- Receiving page specific buttons -->
+        <a href="#">Add New Item</a>
+        <a href="#">View Items</a>
+        <!-- Sidebar Toggle Arrow -->
+        <div class="toggle-arrow" onclick="toggleSidebar()">&lt;</div>
+        <!-- Logged in user display -->
+        <div id="logged-in-user" class="logged-in-user">
+            Logged in as: <span id="username-display"></span>
+        </div>
+    </div>
+    <div class="toggle-arrow-hidden" onclick="toggleSidebar()">&gt;</div>
+    <div class="content">
+        <a href="index.html" class="back-button">Back to Home</a>
+        <h2>Warehouse Receiving</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Item ID</th>
+                    <th>Description</th>
+                    <th>Quantity</th>
+                    <th>Received By</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Item entries will be dynamically added here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script src="../js/global.js"></script>
+    <script src="../js/Receiving.js"></script>
+</body>
+</html>

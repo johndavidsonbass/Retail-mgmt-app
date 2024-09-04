@@ -1,0 +1,33 @@
+// Define color variables
+$background-color-light: #f0f0f0;
+$text-color-light: #333;
+$sidebar-background-light: #333;
+$sidebar-link-background-light: #444;
+$sidebar-link-hover-background-light: #555;
+
+$background-color-dark: #181818;
+$text-color-dark: #e0e0e0;
+$sidebar-background-dark: #282828;
+$sidebar-link-background-dark: #383838;
+$sidebar-link-hover-background-dark: #484848;
+
+// Define the default (light mode) color variables
+$background-color: $background-color-light;
+$text-color: $text-color-light;
+$sidebar-background: $sidebar-background-light;
+$sidebar-link-background: $sidebar-link-background-light;
+$sidebar-link-hover-background: $sidebar-link-hover-background-light;
+
+// Dark mode color variables (to be used when dark mode is active)
+.dark-mode {
+    $background-color: $background-color-dark;
+    $text-color: $text-color-dark;
+    $sidebar-background: $sidebar-background-dark;
+    $sidebar-link-background: $sidebar-link-background-dark;
+    $sidebar-link-hover-background: $sidebar-link-hover-background-dark;
+}
+
+$button-background: Yellow;
+$button-text: green;
+$button-background-dark: black;
+$button-text-dark: white;

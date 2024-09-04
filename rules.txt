@@ -1,0 +1,9 @@
+Code Growth: We'll aim to add to the existing code rather than removing or refactoring, unless it's absolutely necessary and beneficial.
+
+Clarifications: If I'm unsure about any aspect of your requirements, I will ask for clarification rather than making assumptions.
+
+Suggestions: I'll offer suggestions where they can significantly improve the process or the functionality of the app.
+
+Complete Code Blocks: I will provide full code blocks when making changes, so you can replace entire files rather than copying sections.
+
+Focused Edits: I will only modify the parts of the code that are directly related to the feature or change you request, leaving all other parts unchanged unless instructed otherwise.

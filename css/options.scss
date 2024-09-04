@@ -1,0 +1,213 @@
+@import 'global';
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    background-color: #f0f0f0;
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.sidebar {
+    width: 200px;
+    background-color: #333;
+    padding: 20px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition: width 0.3s ease, padding 0.3s ease;
+}
+
+.sidebar.hidden {
+    width: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.sidebar a {
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    display: block;
+    background-color: #444;
+    border-radius: 5px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.sidebar a:hover {
+    background-color: #555;
+}
+
+.toggle-arrow,
+.toggle-arrow-hidden {
+    position: absolute;
+    top: 10px;
+    background-color: #333;
+    color: white;
+    width: 25px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 0 10px 10px 0;
+    transition: left 0.3s ease;
+}
+
+.toggle-arrow-hidden {
+    left: 0;
+    display: none;
+}
+
+.toggle-arrow {
+    left: 100%;
+}
+
+.sidebar.hidden .toggle-arrow {
+    left: 0;
+}
+
+.content {
+    flex: 1;
+    padding: 20px;
+    transition: margin-left 0.3s ease;
+    margin-left: 25px;
+}
+
+.back-button, .save-btn {
+    display: inline-block;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.back-button:hover, .save-btn:hover {
+    background-color: #45a049;
+}
+
+h2, h3 {
+    margin-top: 0;
+}
+
+.options-content {
+    margin-top: 20px;
+}
+
+.user-form {
+    margin-bottom: 20px;
+}
+
+.user-form input {
+    display: block;
+    margin-bottom: 10px;
+    padding: 8px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.user-form button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.user-form button:hover {
+    background-color: #45a049;
+}
+
+#user-list-container h3 {
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+#user-list {
+    margin-top: 10px;
+}
+
+#user-list p {
+    margin: 0;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.edit-btn {
+    padding: 5px 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.edit-btn:hover {
+    background-color: #45a049;
+}
+
+/* Popup Styling */
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 40px;
+    border: 1px solid #ccc;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    width: 80%;
+    max-width: 600px;
+}
+
+.popup-content {
+    position: relative;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.delete-btn {
+    padding: 10px 20px;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.delete-btn:hover {
+    background-color: darkred;
+}
+
+/* Absolute positioning for the logged-in user section */
+.logged-in-user {
+    position: absolute;
+    bottom: 10px;
+    left: 20px;
+    color: white;
+    font-size: 14px;
+}

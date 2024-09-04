@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scan Putaway - Brownie Furniture</title>
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/ScanPutaway.css">
+</head>
+
+<body>
+    <div class="sidebar">
+        <a href="#" id="scanner-link">Scanner</a>
+        <a href="#" id="items-link">Items</a>
+        <a href="#" id="locations-link">Locations</a>
+        <div id="logged-in-user" class="logged-in-user"></div> <!-- Display the logged in user -->
+        <div class="toggle-arrow" onclick="toggleSidebar()">&lt;</div>
+    </div>
+    <div class="toggle-arrow-hidden" onclick="toggleSidebar()">&gt;</div>
+    <div class="content">
+        <a href="index.html" class="back-button">Back to Home</a>
+        <h2>Scan Putaway</h2>
+
+        <div id="scanner-content" class="scanputaway-content">
+            <h3>Scanner</h3>
+            <div class="scanner-container">
+                <input type="text" id="item-number" placeholder="Enter Item Number or UPC">
+                <div>
+                    <button onclick="searchItem()">Search</button>
+                    <button onclick="startScanner()">Scan Barcode</button>
+                </div>
+                <video id="scanner-preview" class="scanner-preview"></video>
+            </div>
+            <div class="scanner-results" id="scanner-results">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Item Name</th>
+                            <th>SKU</th>
+                            <th>UPC</th>
+                            <th>Price</th>
+                            <th>Cost</th>
+                            <th>Profit</th>
+                            <th>Margin</th>
+                            <th>Locations</th>
+                            <th>Inventory Qty</th>
+                        </tr>
+                    </thead>
+                    <tbody id="scanner-results-body">
+                        <!-- Search results will be dynamically added here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="items-content" class="scanputaway-content" style="display: none;">
+            <div class="tabs">
+                <div class="tab active" id="add-item-tab">Add Item</div>
+                <div class="tab" id="item-list-tab">Item List</div>
+                <div class="tab" id="location-tab">Locations</div>
+            </div>
+
+            <div class="item-form" id="add-item-form">
+                <label for="item-photo">Photo of Item:</label>
+                <input type="file" id="item-photo">
+
+                <label for="item-name">Name of Item:</label>
+                <input type="text" id="item-name" placeholder="Enter item name">
+
+                <label for="item-sku">SKU:</label>
+                <input type="text" id="item-sku" placeholder="Enter SKU">
+
+                <label for="item-upc">UPC:</label>
+                <input type="text" id="item-upc" placeholder="Enter UPC">
+
+                <label for="item-price">Price ($):</label>
+                <input type="number" id="item-price" placeholder="Enter price" step="0.01">
+
+                <label for="item-cost">Cost ($):</label>
+                <input type="number" id="item-cost" placeholder="Enter cost" step="0.01">
+
+                <label for="item-profit">Profit ($):</label>
+                <input type="number" id="item-profit" readonly>
+
+                <label for="item-margin">Margin (%):</label>
+                <input type="number" id="item-margin" readonly>
+
+                <label for="item-qty">Inventory Qty:</label>
+                <input type="number" id="item-qty" placeholder="Enter inventory quantity">
+
+                <button type="button" onclick="addItem()">Add Item</button>
+            </div>
+
+            <div class="item-list" id="item-list" style="display: none;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Item Name</th>
+                            <th>SKU</th>
+                            <th>UPC</th>
+                            <th>Price ($)</th>
+                            <th>Cost ($)</th>
+                            <th>Profit ($)</th>
+                            <th>Margin</th>
+                            <th>Locations</th>
+                            <th>Inventory Qty</th>
+                        </tr>
+                    </thead>
+                    <tbody id="item-list-body">
+                        <!-- Items will be dynamically added here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="locations-content" class="scanputaway-content" style="display: none;">
+            <div class="location-form">
+                <label for="location-code">Location Code:</label>
+                <input type="text" id="location-code" placeholder="Enter location code (e.g., A1234)">
+                <button type="button" onclick="addLocation()">Add Location</button>
+                <input type="text" id="location-search" placeholder="Search Locations">
+                <button type="button" onclick="searchLocations()">Search</button>
+            </div>
+            <div class="location-list">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Location Code</th>
+                            <th># Skus</th>
+                            <th># Items</th>
+                            <th>Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody id="location-list-body">
+                        <!-- Locations will be dynamically added here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="item-popup" class="popup">
+        <button class="close-btn" onclick="closePopup()">X</button>
+        <h3>Item Master</h3>
+        <p><strong>Name:</strong> <span id="popup-item-name"></span></p>
+        <p><strong>SKU:</strong> <span id="popup-item-sku"></span></p>
+        <p><strong>UPC:</strong> <span id="popup-item-upc"></span></p>
+        <p><strong>Price ($):</strong> <span id="popup-item-price"></span></p>
+        <p><strong>Cost ($):</strong> <span id="popup-item-cost"></span></p>
+        <p><strong>Profit ($):</strong> <span id="popup-item-profit"></span></p>
+        <p><strong>Margin:</strong> <span id="popup-item-margin"></span></p>
+        <p><strong>Inventory Qty:</strong> <span id="popup-item-qty"></span></p>
+        <div id="popup-item-locations">
+            <h4>Locations</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Location Code</th>
+                        <th>Location Notes</th>
+                        <th>Qty</th>
+                    </tr>
+                </thead>
+                <tbody id="popup-location-list">
+                    <!-- Locations will be dynamically added here -->
+                </tbody>
+            </table>
+            <p class="error" id="location-error" style="display:none;">Location quantity exceeds inventory quantity</p>
+        </div>
+        <div class="location-actions">
+            <button onclick="showAddPopup()">Add</button>
+            <button onclick="showRemovePopup()">Remove</button>
+            <button onclick="showMovePopup()">Move</button>
+            <button class="delete-btn" onclick="deleteAllLocations()">Delete All Locations</button>
+        </div>
+        <div id="item-action-form" style="display: none;">
+            <h4 id="action-title">Action</h4>
+            <p>
+                <label for="item-action-sku">SKU/UPC:</label>
+                <input type="text" id="item-action-sku">
+            </p>
+            <p>
+                <label for="item-action-location">Location Code:</label>
+                <input type="text" id="item-action-location" readonly>
+            </p>
+            <p id="item-action-to-location-row" style="display: none;">
+                <label for="item-action-to-location">To Location:</label>
+                <input type="text" id="item-action-to-location">
+            </p>
+            <p>
+                <label for="item-action-qty">Quantity:</label>
+                <input type="number" id="item-action-qty">
+            </p>
+            <button onclick="submitItemAction()">Submit</button>
+            <button onclick="closeItemActionForm()">Cancel</button>
+        </div>
+    </div>
+
+    <div id="location-popup" class="popup">
+        <button class="close-btn" onclick="closeLocationPopup()">X</button>
+        <h3>Location Master</h3>
+        <div id="location-code-display" style="font-size: 1.5em; font-weight: bold; margin-bottom: 10px;"></div>
+        <table id="location-item-list">
+            <thead>
+                <tr>
+                    <th>Item Name</th>
+                    <th>SKU</th>
+                    <th>UPC</th>
+                    <th>Qty</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Items in location will be dynamically added here -->
+            </tbody>
+        </table>
+        <div class="location-actions">
+            <button onclick="showLocationAdd()">Add</button>
+            <button onclick="showLocationRemove()">Remove</button>
+            <button onclick="showLocationMove()">Move</button>
+            <button class="delete-btn" onclick="deleteAllItemsInLocation()">Delete All Items</button>
+            <div style="margin-top: 10px;">
+                <label for="location-notes">Notes:</label>
+                <input type="text" id="location-notes" maxlength="30" placeholder="Enter notes">
+                <button onclick="saveLocationNotes()">Save</button>
+            </div>
+        </div>
+        <div id="location-action-form" style="display: none;">
+            <h4 id="location-action-title">Action</h4>
+            <p>
+                <label for="location-action-sku">SKU/UPC:</label>
+                <input type="text" id="location-action-sku">
+            </p>
+            <p>
+                <label for="location-action-location">From Location:</label>
+                <input type="text" id="location-action-location" readonly>
+            </p>
+            <p id="location-action-to-location-row" style="display: none;">
+                <label for="location-action-to-location">To Location:</label>
+                <input type="text" id="location-action-to-location">
+            </p>
+            <p>
+                <label for="location-action-qty">Quantity:</label>
+                <input type="number" id="location-action-qty">
+            </p>
+            <button onclick="submitLocationAction()">Submit</button>
+            <button onclick="closeLocationActionForm()">Cancel</button>
+        </div>
+    </div>
+
+    <script src="../js/ScanPutaway.js"></script>
+    <script src="../js/global.js"></script>
+</body>
+
+</html>

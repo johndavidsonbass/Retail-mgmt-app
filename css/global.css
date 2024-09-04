@@ -1,0 +1,29 @@
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  background-color: #f0f0f0;
+  color: #333;
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+body.dark-mode {
+  background-color: #181818;
+  color: #e0e0e0;
+}
+
+.sidebar {
+  background-color: #333;
+}
+.sidebar.dark-mode {
+  background-color: #282828;
+}
+
+.button {
+  background-color: Yellow;
+  color: green;
+}
+.button.dark-mode {
+  background-color: black;
+  color: white;
+}/*# sourceMappingURL=global.css.map */

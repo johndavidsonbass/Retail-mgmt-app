@@ -1,0 +1,39 @@
+@import 'variables';
+@import 'mixins';
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    background-color: $background-color;
+    color: $text-color;
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+
+    &.dark-mode {
+        background-color: $background-color-dark;
+        color: $text-color-dark;
+    }
+}
+
+// Add global styles for dark mode to sidebar, buttons, etc.
+.sidebar {
+    background-color: $sidebar-background;
+
+    &.dark-mode {
+        background-color: $sidebar-background-dark;
+    }
+}
+
+.button {
+    background-color: $button-background;
+    color: $button-text;
+
+    &.dark-mode {
+        background-color: $button-background-dark;
+        color: $button-text-dark;
+    }
+}
+
+// Similarly, define dark mode for other components...
+

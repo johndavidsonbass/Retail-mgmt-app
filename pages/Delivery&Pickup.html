@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deliveries & Pickups - Brownie Furniture</title>
+    <!-- FullCalendar CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css" rel="stylesheet">
+    <!-- Link to global styles -->
+    <link rel="stylesheet" href="../css/global.css">
+    <!-- Link to page-specific styles -->
+    <link rel="stylesheet" href="../css/Delivery&Pickup.css">
+</head>
+<body>
+    <div class="sidebar">
+        <a href="#" id="add-delivery-link">Add Delivery</a>
+        <a href="#" id="view-deliveries-link">View Deliveries</a>
+        <a href="#" id="add-pickup-link">Add Pickup</a>
+        <a href="#" id="view-pickups-link">View Pickups</a>
+        <a href="#" id="calendar-link">Calendar</a>
+        <div id="logged-in-user" class="logged-in-user">Logged in as: </div>
+        <div class="toggle-arrow" onclick="toggleSidebar()">&lt;</div>
+    </div>
+    <div class="toggle-arrow-hidden" onclick="toggleSidebar()">&gt;</div>
+    <div class="content">
+        <a href="index.html" class="back-button">Back to Home</a>
+        <h2>Deliveries & Pickups</h2>
+        <div id="calendar-content" class="delivery-pickup-content">
+            <div id="calendar"></div>
+        </div>
+    </div>
+
+    <!-- FullCalendar JS -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
+    <!-- Link to page-specific scripts -->
+    <script src="../js/Delivery&Pickup.js"></script>
+    <script src="../js/global.js"></script>
+</body>
+</html>

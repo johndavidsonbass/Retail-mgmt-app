@@ -1,0 +1,4 @@
+@mixin apply-dark-mode {
+    background-color: $background-color-dark;
+    color: $text-color-dark;
+}

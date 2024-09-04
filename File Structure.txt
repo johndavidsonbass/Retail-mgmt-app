@@ -1,0 +1,40 @@
+Brownie Furniture App 0.1.1/
+│
+├── components/
+│   └── ...    # No files yet
+│
+├── css
+│   ├── Delivery&Pickup.scss
+│   ├── global.scss
+│   ├── index.scss
+│   ├── login.scss
+│   ├── options.scss
+│   ├── Receiving.scss
+│   ├── Reports.scss
+│   ├── ScanPutaway.scss
+│   └── UpSheet.scss 
+│
+├── js/
+│   ├── Delivery&Pickup.js
+│   ├── global.js
+│   ├── index.js
+│   ├── login.js
+│   ├── navbar.js
+│   ├── options.js
+│   ├── Receiving.js
+│   ├── Reports.js
+│   ├── ScanPutaway.js
+│   ├── UpSheet.html 
+│   └── utils.js
+│
+├── pages/
+│   ├── Delivery&Pickup.html
+│   ├── index.html
+│   ├── options.html
+│   ├── Receiving.html
+│   ├── Reports.html
+│   ├── ScanPutaway.html
+│   └── UpSheet.html
+│
+│
+└── ...                 login.html

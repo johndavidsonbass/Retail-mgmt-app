@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Options - Brownie Furniture</title>
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/Options.css">
+</head>
+<body>
+    <div class="sidebar">
+        <!-- Options page specific buttons -->
+        <a href="#" id="appearance-link">Appearance</a>
+        <a href="#" id="users-link">Users</a>
+        <a href="#" id="scan-putaway-link">Scan Putaway Maintenance</a>
+        <!-- Sidebar Toggle Arrow -->
+        <div class="toggle-arrow" onclick="toggleSidebar()">&lt;</div>
+        <!-- Logged in user display -->
+        <div id="logged-in-user" class="logged-in-user">
+            Logged in as: <span id="username-display"></span>
+        </div>
+    </div>
+    <div class="toggle-arrow-hidden" onclick="toggleSidebar()">&gt;</div>
+    <div class="content">
+        <button onclick="window.location.href='index.html'" class="back-button">Back to Home</button>
+        <h2>Options</h2>
+        <div id="appearance-content" class="options-content">
+            <h3>Appearance</h3>
+            <label for="dark-mode-toggle">Enable Dark Mode</label>
+    <input type="checkbox" id="dark-mode-toggle" onchange="toggleDarkMode()">
+        </div>
+        <div id="users-content" class="options-content">
+            <h3>Users</h3>
+            <button onclick="showCreateUserPopup()">Create New User</button>
+            <div id="user-list"></div> <!-- User list display -->
+        </div>
+        <div id="scan-putaway-content" class="options-content">
+            <h3>Scan Putaway Maintenance</h3>
+        </div>
+    </div>
+
+    <!-- Create User Popup -->
+    <div id="create-user-popup" class="popup">
+        <div class="popup-content">
+            <span class="close-btn" onclick="closeCreateUserPopup()">&times;</span>
+            <h3>Create New User</h3>
+            <div class="user-form">
+                <input type="text" id="username" placeholder="Username" required>
+                <input type="password" id="password" placeholder="Password" required>
+                <label for="role">Role:</label>
+                <select id="role">
+                    <option value="Admin">Admin</option>
+                    <option value="Executive">Executive</option>
+                    <option value="Manager">Manager</option>
+                    <option value="Sales">Sales</option>
+                    <option value="Warehouse">Warehouse</option>
+                </select>
+                <br><br>
+                <button onclick="createUser()">Create User</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit User Popup -->
+    <div id="edit-user-popup" class="popup">
+        <div class="popup-content">
+            <span class="close-btn" onclick="closeEditUserPopup()">&times;</span>
+            <h3>Edit User:</h3>
+            <p>Username: <span id="edit-username-display"></span></p>
+            <p>Current User Level: <span id="edit-user-role-display"></span></p> <!-- Display current user role -->
+            <label for="edit-role">Change Role:</label>
+            <select id="edit-role">
+                <option value="Admin">Admin</option>
+                <option value="Executive">Executive</option>
+                <option value="Manager">Manager</option>
+                <option value="Sales">Sales</option>
+                <option value="Warehouse">Warehouse</option>
+            </select>
+            <br><br>
+            <button class="save-btn" onclick="saveUserEdits()">Save Changes</button> <!-- Save button -->
+            <button class="delete-btn" onclick="deleteUser()">Delete User</button>
+        </div>
+    </div>
+
+    <script src="../js/global.js"></script>
+    <script src="../js/options.js"></script> <!-- Make sure this is correctly linked -->
+</body>
+</html>

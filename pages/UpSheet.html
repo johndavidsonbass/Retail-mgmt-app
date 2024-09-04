@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Up Sheet - Brownie Furniture</title>
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/UpSheet.css">
+</head>
+
+<body>
+    <section id="up-sheet">
+        <button class="back-button" onclick="window.location.href='index.html'">Back to Home</button>
+        <h2>Up Sheet</h2>
+
+        <div class="date-selector">
+            <label for="date">Select Date:</label>
+            <input type="date" id="date">
+        </div>
+
+        <div class="tabs">
+            <div class="tab" id="whos-up-tab">Who's Up</div>
+            <div class="tab active" id="add-entry-tab">Add New Entry</div>
+            <div class="tab" id="edit-entry-tab">Edit Entry</div>
+        </div>
+
+        <div class="dropdown-content active" id="add-entry-dropdown">
+            <form id="up-sheet-form">
+                <div class="time-row">
+                    <button type="button" id="start-time-button">Start Time</button>
+                    <span id="start-time"></span>
+                    <button type="button" id="end-time-button">End Time</button>
+                    <span id="end-time"></span>
+                </div>
+                <label for="notes">Notes:</label>
+                <textarea id="notes"></textarea>
+                <label>Sale Status:</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="sale-status" value="open" checked> Open</label>
+                    <label><input type="radio" name="sale-status" value="closed"> Closed</label>
+                </div>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+
+        <div class="dropdown-content" id="edit-entry-dropdown">
+            <p>Select an entry to edit. (Only entries created by you can be edited)</p>
+        </div>
+
+        <div class="dropdown-content" id="whos-up-dropdown">
+            <div class="flex-container">
+                <div>
+                    <h3>Employee Rotation</h3>
+                    <div class="toggle-switch-container">
+                        <span class="toggle-switch-label">Reorder</span>
+                        <div id="edit-rotation-toggle" class="toggle-switch"></div>
+                    </div>
+                    <ul id="rotation-list">
+                        <!-- Rotation list will be populated here -->
+                    </ul>
+                </div>
+                <div>
+                    <h3>Select Employees for Rotation</h3>
+                    <ul id="employee-list">
+                        <!-- Employee list will be populated here -->
+                    </ul>
+                </div>
+            </div>
+            <p>The following salesperson is up next:</p>
+            <div id="next-up"></div>
+        </div>
+
+        <ol id="up-sheet-list">
+            <li>
+                <div><strong>Date</strong></div>
+                <div><strong>Start Time</strong></div>
+                <div><strong>End Time</strong></div>
+                <div><strong>Notes</strong></div>
+                <div><strong>Employee Name</strong></div>
+                <div><strong>Sale Status</strong></div>
+            </li>
+            <!-- Entries will be populated here -->
+        </ol>
+    </section>
+
+    <div class="warning-popup" id="warning-popup">
+        <p>You are not up next, are you sure you want to make an entry?</p>
+        <button id="proceed-button">Proceed</button>
+        <button id="cancel-button">Cancel</button>
+    </div>
+
+    <script src="../js/UpSheet.js"></script>
+    <script src="../js/global.js"></script>
+</body>
+
+</html>

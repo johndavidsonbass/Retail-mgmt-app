@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports - Brownie Furniture</title>
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/Reports.css">
+</head>
+<body>
+    <div class="sidebar">
+        <a href="#">Add New Item</a>
+        <a href="#">View Items</a>
+        <a href="#">Reports</a>
+        <a href="#">Receiving</a>
+        <div id="logged-in-user" class="logged-in-user">
+            Logged in as: <span id="username-display"></span>
+        </div>
+        <div class="toggle-arrow" onclick="toggleSidebar()">&lt;</div>
+    </div>
+    <div class="toggle-arrow-hidden" onclick="toggleSidebar()">&gt;</div>
+    <div class="content">
+        <a href="index.html" class="back-button">Back to Home</a>
+        <h2>Reports</h2>
+        <h3 id="report-title">Conversion Report</h3>
+        
+        <div id="conversion-content">
+            <div class="employee-selector">
+                <label for="employee">Select Employee:</label>
+                <select id="employee">
+                    <option value="all">All Employees</option>
+                    <option value="User">User</option>
+                    <option value="John Davidson">John Davidson</option>
+                </select>
+                <button type="button" id="load-conversion">Load Conversion</button>
+            </div>
+            <div class="conversion-rate">
+                Conversion Rate: <span id="conversion-rate">0%</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/Reports.js"></script>
+    <script src="../js/global.js"></script>
+</body>
+</html>
