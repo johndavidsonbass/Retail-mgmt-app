@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
         ) {
             // Log the user in
             alert('Login successful! Redirecting...');
-            window.location.href = 'index.html'; // Redirect to homepage or another page
+            window.location.href = 'pages/home.html'; // Redirect to homepage or another page
         } else {
             // Display error
             alert('Invalid username or password');
@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (user) {
             // If credentials match, save the logged-in user to localStorage and redirect
             localStorage.setItem('loggedInUser', username);
-            window.location.href = 'pages/index.html';  // Adjusted path for index.html
+            window.location.href = 'pages/home.html';  // Adjusted path for index.html
         } else {
             // If credentials don't match, display an error message
             errorMessage.textContent = 'Invalid username or password';
