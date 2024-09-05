@@ -13,8 +13,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
 
-        // Backend API URL for login
-        const API_URL = 'http://localhost:5000/api/auth/login';  // Adjust as needed
+        // Use the Heroku-deployed API URL for login
+        const API_URL = 'https://retail-mgmt-app-backend-9867d5537e1a.herokuapp.com/api/auth/login';
 
         try {
             // Send a POST request to the backend for authentication
