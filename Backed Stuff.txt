@@ -1,1 +1,8 @@
 gbMMxLJHBCRdYOXM
+
+MONGO_URI=mongodb+srv://johndavidsonbass:gbMMxLJHBCRdYOXM@browniefurniture.mrmnl.mongodb.net/?retryWrites=true&w=majority&appName=BrownieFurniture
+JWT_SECRET=gbMMxLJHBCRdYOXM
+
+
+
+retail-mgmt-app-backend-9867d5537e1a.herokuapp.com/
