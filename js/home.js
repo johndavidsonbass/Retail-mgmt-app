@@ -30,12 +30,10 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Event listener for Logout button
-    document.getElementById('logout-button').addEventListener('click', function() {
-        // Clear the token and logged-in user from local storage
-        localStorage.removeItem('token');
-        localStorage.removeItem('loggedInUser');
-        
-        // Redirect to the login page
-        window.location.href = '../index.html';
-    });
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('logout-button').addEventListener('click', function() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('loggedInUser');
+            window.location.href = '../index.html';
+        });
 });

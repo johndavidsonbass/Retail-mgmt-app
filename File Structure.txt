@@ -15,12 +15,13 @@ Brownie Furniture App 0.1.1/
 │   └── UpSheet.scss 
 │
 ├── js/
+│   ├── config.js
 │   ├── Delivery&Pickup.js
 │   ├── global.js
-│   ├── index.js
+│   ├── home.js
 │   ├── login.js
 │   ├── navbar.js
-│   ├── options.js
+│   ├── Options.js
 │   ├── Receiving.js
 │   ├── Reports.js
 │   ├── ScanPutaway.js
@@ -29,12 +30,12 @@ Brownie Furniture App 0.1.1/
 │
 ├── pages/
 │   ├── Delivery&Pickup.html
-│   ├── index.html
-│   ├── options.html
+│   ├── home.html
+│   ├── Options.html
 │   ├── Receiving.html
 │   ├── Reports.html
 │   ├── ScanPutaway.html
 │   └── UpSheet.html
 │
 │
-└── ...                 login.html
+└── ...                 index.html
