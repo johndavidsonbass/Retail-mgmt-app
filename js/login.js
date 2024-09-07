@@ -20,8 +20,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (response.ok) {
                 const data = await response.json();
-                // Save the JWT token in local storage
-                localStorage.setItem('token', data.token);
+                // Save the JWT token and username in local storage
+                localStorage.setItem('token', data.token);         // Store JWT token
+                localStorage.setItem('loggedInUser', data.username); // Store logged-in username
+
                 // Redirect to home page after successful login
                 window.location.href = 'pages/home.html';
             } else {

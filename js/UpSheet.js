@@ -34,34 +34,46 @@
             updateCursor(); // Change cursor based on edit mode
         });
 
-        const loadEntries = (selectedDate) => {
-            const savedEntries = JSON.parse(localStorage.getItem(`upSheet-${selectedDate}`)) || [];
+        const loadEntries = async (selectedDate) => {
             upSheetList.innerHTML = ''; // Clear existing entries
-            const headerRow = document.createElement('li');
-            headerRow.innerHTML = `
-                <div><strong>Date</strong></div>
-                <div><strong>Start Time</strong></div>
-                <div><strong>End Time</strong></div>
-                <div><strong>Notes</strong></div>
-                <div><strong>Employee Name</strong></div>
-                <div><strong>Sale Status</strong></div>
-            `;
-            upSheetList.appendChild(headerRow);
-            savedEntries.forEach(entry => {
-                const listItem = document.createElement('li');
-                listItem.innerHTML = `
-                    <div>${entry.date}</div>
-                    <div>${entry.startTime}</div>
-                    <div>${entry.endTime}</div>
-                    <div>${entry.notes}</div>
-                    <div>${entry.employeeName}</div>
-                    <div>${entry.saleStatus}</div>
+        
+            try {
+                const response = await fetch(`http://localhost:5000/api/UpSheet/${selectedDate}`);
+                const data = await response.json();
+                const savedEntries = data.upSheetEntries;
+        
+                // Create and append header row
+                const headerRow = document.createElement('li');
+                headerRow.innerHTML = `
+                    <div><strong>Date</strong></div>
+                    <div><strong>Start Time</strong></div>
+                    <div><strong>End Time</strong></div>
+                    <div><strong>Notes</strong></div>
+                    <div><strong>Employee Name</strong></div>
+                    <div><strong>Sale Status</strong></div>
                 `;
-                upSheetList.appendChild(listItem);
-            });
-
-            determineNextUp();
+                upSheetList.appendChild(headerRow);
+        
+                // Populate the list with server data
+                savedEntries.forEach(entry => {
+                    const listItem = document.createElement('li');
+                    listItem.innerHTML = `
+                        <div>${entry.date}</div>
+                        <div>${entry.startTime}</div>
+                        <div>${entry.endTime}</div>
+                        <div>${entry.notes}</div>
+                        <div>${entry.employeeName}</div>
+                        <div>${entry.saleStatus}</div>
+                    `;
+                    upSheetList.appendChild(listItem);
+                });
+        
+                determineNextUp();
+            } catch (error) {
+                console.error('Error loading upsheet entries:', error);
+            }
         };
+        
 
         const determineNextUp = () => {
             const rotationListItems = document.querySelectorAll('#rotation-list li');
@@ -170,23 +182,32 @@
             }, { offset: Number.NEGATIVE_INFINITY }).element;
         };
 
-        const loadEmployeeList = () => {
+        const loadEmployeeList = async () => {
             const employeeList = document.getElementById('employee-list');
             employeeList.innerHTML = ''; // Clear existing entries
-            const allEmployees = JSON.parse(localStorage.getItem('users')) || []; // Load users from localStorage
-            const rotation = JSON.parse(localStorage.getItem('rotation')) || [];
-            allEmployees.forEach(employee => {
-                const listItem = document.createElement('li');
-                const isChecked = rotation.includes(employee.username) ? 'checked' : '';
-                listItem.innerHTML = `
-                    <label>
-                        <input type="checkbox" value="${employee.username}" ${isChecked} onchange="toggleEmployeeInRotation('${employee.username}', this.checked)">
-                        ${employee.username}
-                    </label>
-                `;
-                employeeList.appendChild(listItem);
-            });
+        
+            try {
+                const response = await fetch('http://localhost:5000/api/users'); // Assuming the server runs on localhost:5000
+                const data = await response.json();
+                const allEmployees = data.users; // Users fetched from the server response
+                const rotation = JSON.parse(localStorage.getItem('rotation')) || [];
+        
+                allEmployees.forEach(employee => {
+                    const listItem = document.createElement('li');
+                    const isChecked = rotation.includes(employee.username) ? 'checked' : '';
+                    listItem.innerHTML = `
+                        <label>
+                            <input type="checkbox" value="${employee.username}" ${isChecked} onchange="toggleEmployeeInRotation('${employee.username}', this.checked)">
+                            ${employee.username}
+                        </label>
+                    `;
+                    employeeList.appendChild(listItem);
+                });
+            } catch (error) {
+                console.error('Error fetching users:', error);
+            }
         };
+        
 
         const toggleEmployeeInRotation = (employee, isChecked) => {
             loadRotationList();
@@ -259,8 +280,9 @@
             submitEntry(selectedDate, startTime, endTime, notes, saleStatus, employeeName);
         });
 
-        const submitEntry = (selectedDate, startTime, endTime, notes, saleStatus, employeeName) => {
+        const submitEntry = async (selectedDate, startTime, endTime, notes, saleStatus, employeeName) => {
             warningPopup.classList.remove('active');
+        
             const newEntry = {
                 date: selectedDate,
                 startTime: startTime,
@@ -269,30 +291,56 @@
                 employeeName: employeeName,
                 saleStatus: saleStatus
             };
-
-            const savedEntries = JSON.parse(localStorage.getItem(`upSheet-${selectedDate}`)) || [];
-            savedEntries.push(newEntry);
-            localStorage.setItem(`upSheet-${selectedDate}`, JSON.stringify(savedEntries));
-
-            const listItem = document.createElement('li');
-            listItem.innerHTML = `
-                <div>${selectedDate}</div>
-                <div>${startTime}</div>
-                <div>${endTime}</div>
-                <div>${notes}</div>
-                <div>${employeeName}</div>
-                <div>${saleStatus}</div>
-            `;
-            upSheetList.appendChild(listItem);
-
-            document.getElementById('notes').value = '';
-            startTimeSpan.textContent = '';
-            endTimeSpan.textContent = '';
-
-            // Move the employee to the bottom of the rotation list
-            moveEmployeeToBottom(employeeName);
-            determineNextUp();
+        
+            try {
+                const response = await fetch('http://localhost:5000/api/UpSheet', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(newEntry)
+                });
+        
+                if (response.ok) {
+                    // If the response is successful, parse it as JSON
+                    const result = await response.json();
+                    console.log('Entry created successfully:', result);
+                    
+                    // Append the new entry to the list
+                    const listItem = document.createElement('li');
+                    listItem.innerHTML = `
+                        <div>${selectedDate}</div>
+                        <div>${startTime}</div>
+                        <div>${endTime}</div>
+                        <div>${notes}</div>
+                        <div>${employeeName}</div>
+                        <div>${saleStatus}</div>
+                    `;
+                    upSheetList.appendChild(listItem);
+        
+                    // Clear form inputs after submission
+                    document.getElementById('notes').value = '';
+                    startTimeSpan.textContent = '';
+                    endTimeSpan.textContent = '';
+        
+                    // Move the employee to the bottom of the rotation list
+                    moveEmployeeToBottom(employeeName);
+                    determineNextUp();
+        
+                    // Emit socket event to notify other clients
+                    socket.emit('new-upSheet-entry', newEntry);
+                } else {
+                    // If response is not ok, log the error message
+                    const errorMessage = await response.text(); // Get the response text
+                    console.error('Error submitting upsheet entry:', errorMessage);
+                }
+            } catch (error) {
+                console.error('Error submitting upsheet entry:', error);
+            }
         };
+        
+        
+        
 
         const moveEmployeeToBottom = (employeeName) => {
             const rotationListItems = Array.from(document.querySelectorAll('#rotation-list li'));
@@ -339,3 +387,23 @@
         dateInput.addEventListener('change', () => {
             loadEntries(dateInput.value);
         });
+
+
+
+
+
+const socket = io('http://localhost:5000');
+
+// Listen for updates to the upsheet list
+socket.on('update-upSheet-list', (newEntry) => {
+    const listItem = document.createElement('li');
+    listItem.innerHTML = `
+        <div>${newEntry.date}</div>
+        <div>${newEntry.startTime}</div>
+        <div>${newEntry.endTime}</div>
+        <div>${newEntry.notes}</div>
+        <div>${newEntry.employeeName}</div>
+        <div>${newEntry.saleStatus}</div>
+    `;
+    upSheetList.appendChild(listItem);
+});
